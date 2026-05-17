@@ -13,11 +13,11 @@ import os
 from dotenv import load_dotenv
 
 from dimensions.dimension_client import (
-    Auth,
     DimensionClient,
     DimensionValue,
     AddDimensionValueError,
 )
+from graphql_client.graphql_client import Auth
 
 
 def add_dimension():
