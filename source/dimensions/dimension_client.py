@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import Any
 
 from gql import Client, gql
 from gql.transport.requests import RequestsHTTPTransport
-from gql.transport.exceptions import TransportQueryError
+
+from graphql_client.graphql_client import Auth, get_client
 
 
 @dataclass(frozen=True)
@@ -30,12 +30,6 @@ class DimensionValue:
     title_fi: str
 
 
-@dataclass(frozen=True)
-class Auth:
-    csrf_token: str
-    session_id: str
-
-
 class AddDimensionValueError(Exception):
     pass
 
@@ -46,16 +40,7 @@ class DimensionClient:
         endpoint: str,
         auth: Auth,
     ):
-        self.endpoint = endpoint
-        self.auth = auth
-        transport = RequestsHTTPTransport(
-            url=endpoint,
-            headers={
-                "Cookie": f"csrftoken={auth.csrf_token};sessionid={auth.session_id}",
-            },
-            verify=True,
-        )
-        self.client = Client(transport=transport, fetch_schema_from_transport=False)
+        self.client = get_client(endpoint, auth)
 
     def create_dimension(
         self,
