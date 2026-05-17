@@ -1,0 +1,15 @@
+{
+    "can_add_values": true,
+    "can_remove": true,
+    "is_key_dimension": false,
+    "is_list_filter": true,
+    "is_multi_value": true,
+    "is_negative_selection": false,
+    "is_public": true,
+    "is_shown_in_detail": true,
+    "is_shown_to_subject": true,
+    "is_technical": false,
+    "title_en": "Inclusivity",
+    "title_fi": "Esteettömyys",
+    "value_ordering": "TITLE"
+}
