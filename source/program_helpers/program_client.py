@@ -38,7 +38,7 @@ class ProgramClient:
           query GetProgramsNeedingInvites($event: String!) {
             event(slug: $event) {
               program {
-                programs {
+                programs(publicOnly: false) {
                   slug
                   isCancelled
                   invitations {
@@ -157,7 +157,8 @@ class ProgramClient:
                 f"No input field with program helpers found in offer for program {program_id}"
             )
             return [], None
-        helpers = [h.strip() for h in helpers_input.split(",") if h]
+        cleaned_helpers_input = helpers_input.strip().strip('"').strip().rstrip(",")
+        helpers = [h.strip() for h in cleaned_helpers_input.split(",") if h]
         if all([self._is_more_or_less_valid_email(h) for h in helpers]):
             return helpers, None
         else:
