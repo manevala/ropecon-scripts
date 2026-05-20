@@ -9,4 +9,5 @@ user with program admin privileges.
 
 ## source/program_helpers/send_program_helper_invites.py
 
-Send invites to program helpers given on the program offer form.
+Send invites to program helpers given on the program offer form. To run, you'll need a Kompassi
+user with program admin privileges.

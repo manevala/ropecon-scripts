@@ -33,9 +33,19 @@ def send_program_helper_invites():
         help="if set, do a dry run: don't actually send any invites",
         action="store_true",
     )
+    arg_parser.add_argument(
+        "-l",
+        "--limit",
+        help="send invites only for the first LIMIT programs. Use to send in batches.",
+        type=int,
+    )
+
     args = arg_parser.parse_args()
 
     is_dry_run = args.d
+    limit = args.limit
+    if limit is not None and limit < 0:
+        arg_parser.error("limit must be zero or greater")
 
     load_dotenv()
     event_slug = os.environ["EVENT_SLUG"]
@@ -50,7 +60,12 @@ def send_program_helper_invites():
     if len(invite_data.failed) > 0:
         _write_error_data(invite_data.failed)
 
-    for program in invite_data.to_invite:
+    programs_to_invite = invite_data.to_invite
+    if limit is not None:
+        programs_to_invite = programs_to_invite[:limit]
+        print(f"NOTE: sending invites only to {limit} programs")
+
+    for program in programs_to_invite:
         for email_address in program.emails:
             print(f"Sending invite to {email_address} for program {program.program_id}")
             program_client.send_program_invite(
