@@ -11,3 +11,16 @@ user with program admin privileges.
 
 Send invites to program helpers given on the program offer form. To run, you'll need a Kompassi
 user with program admin privileges.
+
+## source/tickets/send_tickets.py
+
+Send tickets to a given list of people, with optionally marking them paid. To run, you'll need a Kompassi
+user with ticket admin privileges.
+
+You can find an example input Excel in data/example_ticket_orders.xlsx. The fields in the xlsx file should be, in order
+* First name of recipient
+* Last name of recipient (note that Kompassi needs both first and last names to create an order)
+* Email to send tickets to 
+* Id of ticket product in Kompassi (this is an integer)
+* Language code for the ticket email (FI or EN)
+* Number of tickets to send in this order 
