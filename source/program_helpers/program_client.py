@@ -48,6 +48,10 @@ class ProgramClient:
                     formData
                     language
                   }
+                  programHosts {
+                    id
+                    isActive
+                  }
                 }
               }
             }
@@ -65,8 +69,16 @@ class ProgramClient:
         for program in program_data:
             program_id = program["slug"]
 
+            host_count = 0
+            for host in program.get("programHosts") or []:
+                if host.get("isActive"):
+                    host_count += 1
+
             if len(program["invitations"]) != 0:
                 print(f"Program {program_id} already has invites, ignoring")
+                continue
+            if host_count > 1:
+                print(f"Program {program_id} has multiple hosts already, ignoring")
                 continue
             if program["isCancelled"]:
                 print(f"Program {program_id} has been cancelled, ignoring")
