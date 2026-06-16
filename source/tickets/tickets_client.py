@@ -1,7 +1,15 @@
+from dataclasses import dataclass
+
 from gql import gql
 
 from graphql_client.graphql_client import Auth, get_client
 from tickets.read_excel import TicketOrder
+
+
+@dataclass(frozen=True)
+class CreatedOrder:
+    id: str
+    number: str
 
 
 class TicketsClient:
@@ -9,13 +17,14 @@ class TicketsClient:
         self.client = get_client(endpoint, auth)
         self.event_slug = event_slug
 
-    def send_order(self, order: TicketOrder) -> str | None:
+    def send_order(self, order: TicketOrder) -> CreatedOrder | None:
         """Send a ticket order, return id of the created order"""
         mutation = gql("""
             mutation CreateOrder($input: CreateOrderInput!) {
                 createOrder(input: $input) {
                     order {
                         id
+                        orderNumber
                     }
                 }
             }
@@ -46,7 +55,10 @@ class TicketsClient:
             print(f"Failed for email: {order.email}, error: {first_error}")
             return None
         else:
-            return result["createOrder"]["order"]["id"]
+            return CreatedOrder(
+                result["createOrder"]["order"]["id"],
+                result["createOrder"]["order"]["orderNumber"],
+            )
 
     def mark_order_paid(self, order_id: str) -> None:
         mutation = gql("""
