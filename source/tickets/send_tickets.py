@@ -34,9 +34,12 @@ def send_tickets():
     print("Sending orders")
     order_ids = []
     for order in to_send:
-        order_id = tickets_client.send_order(order)
-        if order_id is not None:
-            order_ids.append(order_id)
+        created_order = tickets_client.send_order(order)
+        if created_order is not None:
+            print(
+                f"Sent order {created_order.id}, order number {created_order.number} to email {order.email}"
+            )
+            order_ids.append(created_order.id)
 
     print(f"Sent {len(order_ids)} orders")
 
@@ -47,6 +50,7 @@ def send_tickets():
         print("Next setting orders paid")
         for order_id in order_ids:
             tickets_client.mark_order_paid(order_id)
+            print(f"Marked order {order_id} as paid")
 
 
 if __name__ == "__main__":
