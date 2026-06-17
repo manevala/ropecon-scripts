@@ -7,7 +7,7 @@ from dimensions.program_client import ProgramClient
 from graphql_client.graphql_client import Auth
 
 
-def set_grouping_dimensions():
+def set_registration_dimensions():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument(
         "-l",
@@ -24,7 +24,7 @@ def set_grouping_dimensions():
         Auth(os.environ["CSRF_TOKEN"], os.environ["SESSION_ID"]),
         os.environ["EVENT_SLUG"],
     )
-    programs_to_edit = client.get_programs_to_edit_grouping()
+    programs_to_edit = client.get_programs_to_edit_registration()
 
     print(f"Found {len(programs_to_edit)} programs to edit.")
 
@@ -32,12 +32,12 @@ def set_grouping_dimensions():
         programs_to_edit = programs_to_edit[:limit]
         print(f"NOTE: editing only {limit} programs")
 
-    print("Starting set_grouping_dimensions...")
+    print("Starting to set dimensions...")
     for program in programs_to_edit:
         print(f"Setting dimensions for program {program.program_id}")
-        client.set_correct_grouping_dimension_value(program)
+        client.set_correct_registration_dimension_value(program)
     print("Done!")
 
 
 if __name__ == "__main__":
-    set_grouping_dimensions()
+    set_registration_dimensions()
