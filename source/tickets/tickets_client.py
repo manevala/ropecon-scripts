@@ -48,7 +48,11 @@ class TicketsClient:
             }
         }
 
-        result = self.client.execute(mutation, variable_values=variables)
+        try:
+            result = self.client.execute(mutation, variable_values=variables)
+        except Exception as e:
+            print(f"Failed for email: {order.email}, error: {e}")
+            return None
 
         if result.get("errors"):
             first_error = result["errors"][0]["message"]

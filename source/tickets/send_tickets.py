@@ -23,7 +23,7 @@ def send_tickets():
 
     load_dotenv()
     event_slug = os.environ["EVENT_SLUG"]
-    url = os.environ["KOMPASSI_GRAPHQUL_URL"]
+    url = os.environ["KOMPASSI_GRAPHQL_URL"]
     auth = Auth(os.environ["CSRF_TOKEN"], os.environ["SESSION_ID"])
 
     print("Opening ticket order file")

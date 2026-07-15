@@ -49,7 +49,7 @@ def add_dimension():
 
     # Get environment file
     load_dotenv()
-    url = os.environ["KOMPASSI_GRAPHQUL_URL"]
+    url = os.environ["KOMPASSI_GRAPHQL_URL"]
     event_slug = os.environ["EVENT_SLUG"]
     auth = Auth(os.environ["CSRF_TOKEN"], os.environ["SESSION_ID"])
 
