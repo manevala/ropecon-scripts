@@ -20,7 +20,7 @@ def set_grouping_dimensions():
 
     load_dotenv()
     client = ProgramClient(
-        os.environ["KOMPASSI_GRAPHQUL_URL"],
+        os.environ["KOMPASSI_GRAPHQL_URL"],
         Auth(os.environ["CSRF_TOKEN"], os.environ["SESSION_ID"]),
         os.environ["EVENT_SLUG"],
     )

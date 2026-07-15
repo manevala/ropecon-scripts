@@ -49,7 +49,7 @@ def send_program_helper_invites():
 
     load_dotenv()
     event_slug = os.environ["EVENT_SLUG"]
-    url = os.environ["KOMPASSI_GRAPHQUL_URL"]
+    url = os.environ["KOMPASSI_GRAPHQL_URL"]
     auth = Auth(os.environ["CSRF_TOKEN"], os.environ["SESSION_ID"])
     form_slug = os.environ["INVITE_FORM_SLUG"]
 
