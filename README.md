@@ -46,3 +46,10 @@ You can find an example input Excel in data/example_perks.xlsx. The fields in th
 * Email of user (the one used in their Kompassi account)
 * 1 if the person should get a weekend ticket, 0 otherwise
 * Food voucher count (integer), can be 0
+
+## source/special_diets/list_program_host_special_diets.py
+
+Create an Excel file that lists program host special diets. Requires a Kompassi user with program admin privileges.
+
+TODO: Doesn't handle all duplicate hosts properly yet, that's why the generated list may be longer than the actual 
+number of hosts.
